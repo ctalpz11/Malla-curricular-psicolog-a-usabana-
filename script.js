@@ -391,9 +391,12 @@ document.addEventListener("click", function(e) {
 
   if (e.target.id === "cerrar-graduacion") {
 
-    document
-      .getElementById("graduacion-modal")
-      .classList.remove("mostrar");
+    console.log("CLICK DETECTADO");
+
+    const modal =
+      document.getElementById("graduacion-modal");
+
+    modal.style.display = "none";
 
   }
 
