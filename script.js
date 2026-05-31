@@ -104,33 +104,7 @@ function guardarDatos() {
   );
 
 }
-// =========================
-// SIMULADOR
-// =========================
 
-function actualizarSimulador() {
-
-  const faltan =
-    totalCreditos - creditos;
-
-  const simulador =
-    document.getElementById("simulador");
-
-  if (!simulador) return;
-
-  if (faltan <= 0) {
-
-    simulador.textContent =
-      "🎓 ¡Ya cumples los créditos para graduarte!";
-
-  } else {
-
-    simulador.textContent =
-      `Te faltan ${faltan} créditos para graduarte.`;
-
-  }
-
-}
 // =========================
 // PROGRESO
 // =========================
@@ -493,3 +467,30 @@ document.querySelectorAll(
     new Event("input")
   )
 );
+// =========================
+// SIMULADOR
+// =========================
+
+function actualizarSimulador() {
+
+  const faltan =
+    totalCreditos - creditos;
+
+  const simulador =
+    document.getElementById("simulador");
+
+  if (!simulador) return;
+
+  if (faltan <= 0) {
+
+    simulador.textContent =
+      "🎓 ¡Ya cumples los créditos para graduarte!";
+
+  } else {
+
+    simulador.textContent =
+      `Te faltan ${faltan} créditos para graduarte.`;
+
+  }
+
+}
