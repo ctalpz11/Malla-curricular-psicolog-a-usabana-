@@ -410,3 +410,75 @@ if (botonCerrar) {
   );
 
 }
+// =========================
+// PROMEDIOS
+// =========================
+
+const inputsPromedios =
+  document.querySelectorAll(
+    "#promedios-container input"
+  );
+
+function actualizarPromedios() {
+
+  let suma = 0;
+  let cantidad = 0;
+
+  inputsPromedios.forEach(
+    (input, index) => {
+
+      const valor =
+        parseFloat(input.value);
+
+      if (!isNaN(valor)) {
+
+        suma += valor;
+        cantidad++;
+
+      }
+
+      localStorage.setItem(
+        "promedio" + index,
+        input.value
+      );
+
+    }
+  );
+
+  const promedio =
+    cantidad > 0
+      ? (suma / cantidad).toFixed(2)
+      : "0.00";
+
+  const elemento =
+    document.getElementById(
+      "promedio-acumulado"
+    );
+
+  if (elemento) {
+
+    elemento.textContent =
+      promedio;
+
+  }
+
+  actualizarSimulador();
+}
+
+inputsPromedios.forEach(
+  (input, index) => {
+
+    input.value =
+      localStorage.getItem(
+        "promedio" + index
+      ) || "";
+
+    input.addEventListener(
+      "input",
+      actualizarPromedios
+    );
+
+  }
+);
+
+actualizarPromedios();
