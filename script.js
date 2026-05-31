@@ -383,3 +383,21 @@ document
 renderizarMalla();
 
 actualizarProgreso();
+// =========================
+// CERRAR GRADUACIÓN
+// =========================
+
+const cerrarGraduacion =
+  document.getElementById("cerrar-graduacion");
+
+if (cerrarGraduacion) {
+
+  cerrarGraduacion.addEventListener("click", () => {
+
+    document
+      .getElementById("graduacion-modal")
+      .classList.remove("mostrar");
+
+  });
+
+}
