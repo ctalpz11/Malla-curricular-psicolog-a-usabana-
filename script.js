@@ -494,3 +494,4 @@ function actualizarSimulador() {
   }
 
 }
+actualizarSimulador();
