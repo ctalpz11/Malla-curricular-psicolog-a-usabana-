@@ -65,21 +65,17 @@ const malla = {
   7: [
     { id: "competencias_prof", nombre: "Competencias profesionales", creditos: 1, prerequisitos: [] },
     { id: "politica", nombre: "Psicología, política y ciudadanía", creditos: 2, prerequisitos: [] },
-    { id: "campo1", nombre: "Campo profesional I", creditos: 3, prerequisitos: ["social", "organizacional", "educativa"] },
-    { id: "campo2", nombre: "Campo profesional II", creditos: 3, prerequisitos: ["social", "organizacional", "educativa"] },
+    { id: "campo1", nombre: "Campo profesional I", creditos: 3, prerequisitos: ["social","organizacional","educativa"] },
+    { id: "campo2", nombre: "Campo profesional II", creditos: 3, prerequisitos: ["social","organizacional","educativa"] },
     { id: "practica_formativa", nombre: "Práctica formativa en clínica y salud", creditos: 4, prerequisitos: ["clinica"] },
     { id: "electiva6", nombre: "Electivas VI", creditos: 3, prerequisitos: [] },
     { id: "proyecto1", nombre: "Proyecto en psicología I", creditos: 2, prerequisitos: [] }
   ],
 
   8: [
-    { id: "practica_final", nombre: "Prácticas en psicología", creditos: 16, prerequisitos: ["proyecto1", "practica_formativa"] }
+    { id: "practica_final", nombre: "Prácticas en psicología", creditos: 16, prerequisitos: ["proyecto1","practica_formativa"] }
   ]
 };
-
-// =========================
-// ESTADO
-// =========================
 
 const totalCreditos = 142;
 
@@ -92,10 +88,11 @@ let creditos = Number(
 ) || 0;
 
 // =========================
-// FUNCIONES
+// GUARDAR
 // =========================
 
 function guardarDatos() {
+
   localStorage.setItem(
     "aprobadas",
     JSON.stringify([...aprobadas])
@@ -105,7 +102,11 @@ function guardarDatos() {
     "creditos",
     creditos
   );
+
 }
+// =========================
+// PROGRESO
+// =========================
 
 function actualizarProgreso() {
 
@@ -133,17 +134,27 @@ function actualizarProgreso() {
   const statsRestantes =
     document.getElementById("stats-restantes");
 
-  if (statsCreditos)
+  if (statsCreditos) {
     statsCreditos.textContent = creditos;
+  }
 
-  if (statsPorcentaje)
-    statsPorcentaje.textContent = porcentaje + "%";
+  if (statsPorcentaje) {
+    statsPorcentaje.textContent =
+      porcentaje + "%";
+  }
 
-  if (statsRestantes)
-    statsRestantes.textContent = restantes;
+  if (statsRestantes) {
+    statsRestantes.textContent =
+      restantes;
+  }
 
   guardarDatos();
+
 }
+
+// =========================
+// BOTONES
+// =========================
 
 function crearBoton(materia) {
 
@@ -163,26 +174,50 @@ function crearBoton(materia) {
 
   boton.addEventListener("click", () => {
 
-    if (
-      boton.classList.contains("desbloqueada") &&
-      !aprobadas.has(materia.id)
-    ) {
+    // DESMARCAR
 
-      boton.classList.remove("desbloqueada");
-      boton.classList.add("aprobada");
+    if (aprobadas.has(materia.id)) {
+
+      aprobadas.delete(materia.id);
+
+      creditos -= materia.creditos;
+
+      if (creditos < 0) {
+        creditos = 0;
+      }
+
+      renderizarMalla();
+      actualizarProgreso();
+
+      return;
+    }
+
+    // MARCAR
+
+    if (
+      boton.classList.contains(
+        "desbloqueada"
+      )
+    ) {
 
       aprobadas.add(materia.id);
 
       creditos += materia.creditos;
 
+      renderizarMalla();
       actualizarProgreso();
 
-      desbloquearMaterias();
     }
+
   });
 
   return boton;
+
 }
+
+// =========================
+// DESBLOQUEAR
+// =========================
 
 function desbloquearMaterias() {
 
@@ -191,32 +226,55 @@ function desbloquearMaterias() {
     for (const materia of malla[semestre]) {
 
       const boton =
-        document.getElementById(materia.id);
+        document.getElementById(
+          materia.id
+        );
 
       if (!boton) continue;
 
-      if (aprobadas.has(materia.id))
+      boton.classList.remove(
+        "desbloqueada"
+      );
+
+      if (
+        aprobadas.has(materia.id)
+      ) {
         continue;
+      }
 
       const disponible =
         materia.prerequisitos.every(
-          req => aprobadas.has(req)
+          req =>
+            aprobadas.has(req)
         );
 
       if (
         disponible ||
         materia.prerequisitos.length === 0
       ) {
-        boton.classList.add("desbloqueada");
+
+        boton.classList.add(
+          "desbloqueada"
+        );
+
       }
+
     }
+
   }
+
 }
+
+// =========================
+// RENDER
+// =========================
 
 function renderizarMalla() {
 
   const contenedor =
-    document.getElementById("malla");
+    document.getElementById(
+      "malla"
+    );
 
   contenedor.innerHTML = "";
 
@@ -225,7 +283,9 @@ function renderizarMalla() {
     const columna =
       document.createElement("div");
 
-    columna.classList.add("semestre");
+    columna.classList.add(
+      "semestre"
+    );
 
     const titulo =
       document.createElement("h2");
@@ -233,20 +293,29 @@ function renderizarMalla() {
     titulo.textContent =
       `Semestre ${semestre}`;
 
-    columna.appendChild(titulo);
+    columna.appendChild(
+      titulo
+    );
 
     for (const materia of malla[semestre]) {
 
       const boton =
         crearBoton(materia);
 
-      columna.appendChild(boton);
+      columna.appendChild(
+        boton
+      );
+
     }
 
-    contenedor.appendChild(columna);
+    contenedor.appendChild(
+      columna
+    );
+
   }
 
   desbloquearMaterias();
+
 }
 
 // =========================
@@ -257,27 +326,44 @@ document
   .querySelectorAll(".tab-btn")
   .forEach(btn => {
 
-    btn.addEventListener("click", () => {
+    btn.addEventListener(
+      "click",
+      () => {
 
-      document
-        .querySelectorAll(".tab-btn")
-        .forEach(b =>
-          b.classList.remove("active")
+        document
+          .querySelectorAll(
+            ".tab-btn"
+          )
+          .forEach(b =>
+            b.classList.remove(
+              "active"
+            )
+          );
+
+        document
+          .querySelectorAll(
+            ".tab-content"
+          )
+          .forEach(tab =>
+            tab.classList.remove(
+              "active"
+            )
+          );
+
+        btn.classList.add(
+          "active"
         );
 
-      document
-        .querySelectorAll(".tab-content")
-        .forEach(tab =>
-          tab.classList.remove("active")
-        );
+        document
+          .getElementById(
+            btn.dataset.tab
+          )
+          .classList.add(
+            "active"
+          );
 
-      btn.classList.add("active");
-
-      document
-        .getElementById(btn.dataset.tab)
-        .classList.add("active");
-
-    });
+      }
+    );
 
   });
 
@@ -286,4 +372,5 @@ document
 // =========================
 
 renderizarMalla();
+
 actualizarProgreso();
