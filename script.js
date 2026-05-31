@@ -147,7 +147,16 @@ function actualizarProgreso() {
     statsRestantes.textContent =
       restantes;
   }
+if (creditos >= totalCreditos) {
 
+  const modal =
+    document.getElementById("graduacion-modal");
+
+  if (modal) {
+    modal.classList.add("mostrar");
+  }
+
+}
   guardarDatos();
 
 }
