@@ -414,72 +414,54 @@ if (botonCerrar) {
 // PROMEDIOS
 // =========================
 
-const inputsPromedios =
-  document.querySelectorAll(
-    "#promedios-container input"
-  );
+for (let i = 1; i <= 8; i++) {
 
-function actualizarPromedios() {
+  const input = document.getElementById(`prom${i}`);
 
-  let suma = 0;
-  let cantidad = 0;
+  if (!input) continue;
 
-  inputsPromedios.forEach(
-    (input, index) => {
+  input.value =
+    localStorage.getItem(`prom${i}`) || "";
 
-      const valor =
-        parseFloat(input.value);
+  input.addEventListener("input", () => {
 
-      if (!isNaN(valor)) {
+    localStorage.setItem(
+      `prom${i}`,
+      input.value
+    );
 
-        suma += valor;
-        cantidad++;
+    let suma = 0;
+    let cantidad = 0;
 
-      }
+    for (let j = 1; j <= 8; j++) {
 
-      localStorage.setItem(
-        "promedio" + index,
-        input.value
+      const valor = parseFloat(
+        document.getElementById(`prom${j}`).value
       );
 
+      if (!isNaN(valor)) {
+        suma += valor;
+        cantidad++;
+      }
     }
-  );
 
-  const promedio =
-    cantidad > 0
-      ? (suma / cantidad).toFixed(2)
-      : "0.00";
-
-  const elemento =
     document.getElementById(
       "promedio-acumulado"
-    );
+    ).textContent =
+      cantidad
+        ? (suma / cantidad).toFixed(2)
+        : "0.00";
 
-  if (elemento) {
+  });
 
-    elemento.textContent =
-      promedio;
-
-  }
-
-  actualizarSimulador();
 }
 
-inputsPromedios.forEach(
-  (input, index) => {
+// calcular al cargar
 
-    input.value =
-      localStorage.getItem(
-        "promedio" + index
-      ) || "";
-
-    input.addEventListener(
-      "input",
-      actualizarPromedios
-    );
-
-  }
+document.querySelectorAll(
+  "#promedios-container input"
+).forEach(input =>
+  input.dispatchEvent(
+    new Event("input")
+  )
 );
-
-actualizarPromedios();
-alert("SCRIPT FUNCIONANDO");
