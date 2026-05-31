@@ -109,7 +109,29 @@ function guardarDatos() {
 // =========================
 
 function actualizarProgreso() {
+function actualizarSimulador() {
 
+  const faltan =
+    totalCreditos - creditos;
+
+  const simulador =
+    document.getElementById("simulador");
+
+  if (!simulador) return;
+
+  if (faltan <= 0) {
+
+    simulador.textContent =
+      "🎓 ¡Ya cumples los créditos para graduarte!";
+
+  } else {
+
+    simulador.textContent =
+      `Te faltan ${faltan} créditos para graduarte.`;
+
+  }
+
+}
   const porcentaje =
     ((creditos / totalCreditos) * 100).toFixed(1);
 
