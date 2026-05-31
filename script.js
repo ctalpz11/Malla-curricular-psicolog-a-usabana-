@@ -482,3 +482,4 @@ inputsPromedios.forEach(
 );
 
 actualizarPromedios();
+alert("SCRIPT FUNCIONANDO");
