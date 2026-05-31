@@ -105,10 +105,9 @@ function guardarDatos() {
 
 }
 // =========================
-// PROGRESO
+// SIMULADOR
 // =========================
 
-function actualizarProgreso() {
 function actualizarSimulador() {
 
   const faltan =
@@ -132,6 +131,12 @@ function actualizarSimulador() {
   }
 
 }
+// =========================
+// PROGRESO
+// =========================
+
+function actualizarProgreso() {
+
   const porcentaje =
     ((creditos / totalCreditos) * 100).toFixed(1);
 
