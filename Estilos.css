@@ -1,84 +1,260 @@
-/* Estilos generales tipo Notion */
+/* =========================
+   ESTILO GENERAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
   margin: 0;
   padding: 0;
-  color: #333;
+  background: #f5f5f7;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "Segoe UI", sans-serif;
+  color: #1d1d1f;
 }
 
-header {
-  background-color: #4b0d0d;
-  color: #fff;
-  padding: 20px;
+/* =========================
+   HEADER
+========================= */
+
+.hero {
+  background: #4b0d0d;
+  color: white;
   text-align: center;
+  padding: 30px 20px;
 }
 
-h1 {
+.hero h1 {
   margin: 0;
-  font-size: 24px;
+  font-size: 32px;
+  font-weight: 700;
 }
 
-#progreso {
-  margin-top: 10px;
-  font-size: 16px;
+#resumen-general {
+  margin-top: 12px;
+  font-size: 15px;
+  opacity: .95;
 }
 
-/* Contenedor de la malla */
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  background: rgba(245,245,247,.85);
+  backdrop-filter: blur(12px);
+}
+
+.tab-btn {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: white;
+  cursor: pointer;
+  transition: .25s;
+  font-size: 14px;
+}
+
+.tab-btn:hover {
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  background: #4b0d0d;
+  color: white;
+}
+
+/* =========================
+   SECCIONES
+========================= */
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* =========================
+   MALLA
+========================= */
+
 #malla {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 16px;
-  padding: 20px;
+  grid-template-columns: repeat(8, minmax(240px, 1fr));
+  gap: 20px;
+  padding: 25px;
   overflow-x: auto;
 }
 
-/* Columna de semestre */
 .semestre {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 10px;
+  background: white;
+  border-radius: 20px;
+  padding: 15px;
+  box-shadow:
+    0 2px 10px rgba(0,0,0,.05);
 }
 
 .semestre h2 {
   text-align: center;
-  font-size: 18px;
-  margin-bottom: 10px;
   color: #4b0d0d;
+  margin-top: 0;
+  margin-bottom: 15px;
 }
 
-/* Botón de materia */
+/* =========================
+   MATERIAS
+========================= */
+
 .materia {
-  display: block;
-  background-color: #eee;
-  color: #333;
+  width: 100%;
   border: none;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 8px;
-  text-align: center;
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 14px;
   font-size: 14px;
+
+  transition:
+    transform .2s,
+    box-shadow .2s;
+
   cursor: not-allowed;
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Materia desbloqueada */
+/* bloqueada */
+
+.materia {
+  background: #efefef;
+  border: 2px dashed #c9c9c9;
+  color: #666;
+}
+
+/* disponible */
+
 .materia.desbloqueada {
-  background-color: #922b2b;
+  background: #922b2b;
   color: white;
+  border: none;
   cursor: pointer;
 }
 
-/* Materia aprobada */
+/* aprobada */
+
 .materia.aprobada {
-  background-color: #266325;
-  color: #fff;
-  font-weight: bold;
+  background: #266325;
+  color: white;
+  border: none;
+  font-weight: 600;
 }
 
-/* Al pasar el cursor por materias desbloqueadas */
-.materia.desbloqueada:hover {
-  background-color: #7a2222;
-  transform: scale(1.03);
+.materia.desbloqueada:hover,
+.materia.aprobada:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================
+   TARJETAS
+========================= */
+
+.card {
+  background: white;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 22px;
+
+  box-shadow:
+    0 2px 12px rgba(0,0,0,.05);
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+/* =========================
+   PROMEDIOS
+========================= */
+
+#promedios-container {
+  display: grid;
+  gap: 10px;
+}
+
+#promedios-container input {
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+/* =========================
+   LOGROS
+========================= */
+
+#logros-container {
+  display: grid;
+  gap: 12px;
+}
+
+.logro {
+  background: #ececec;
+  padding: 15px;
+  border-radius: 14px;
+  opacity: .5;
+}
+
+.logro.desbloqueado {
+  opacity: 1;
+  background: #fff6d6;
+}
+
+/* =========================
+   TOAST IOS
+========================= */
+
+#toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: rgba(30,30,30,.9);
+  color: white;
+
+  padding: 12px 18px;
+
+  border-radius: 16px;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: .3s;
+
+  z-index: 9999;
+}
+
+#toast.mostrar {
+  opacity: 1;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+  #malla {
+    grid-template-columns: repeat(8, 260px);
+  }
+
 }
