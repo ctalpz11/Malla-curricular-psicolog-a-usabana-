@@ -63,6 +63,9 @@ body {
   cursor: pointer;
   transition: .25s;
   font-size: 14px;
+
+  box-shadow:
+    0 1px 4px rgba(0,0,0,.06);
 }
 
 .tab-btn:hover {
@@ -92,15 +95,24 @@ body {
 
 #malla {
   display: grid;
-  grid-template-columns: repeat(8, minmax(210px, 1fr));
+
+  /* MÁS COMPACTA EN EJE X */
+
+  grid-template-columns:
+    repeat(8, minmax(170px, 1fr));
+
   gap: 8px;
+
   padding: 14px;
+
   overflow-x: auto;
 }
 
 .semestre {
   background: white;
-  border-radius: 30px;
+
+  border-radius: 28px;
+
   padding: 8px;
 
   box-shadow:
@@ -109,9 +121,12 @@ body {
 
 .semestre h2 {
   text-align: center;
+
   color: #4b0d0d;
+
   margin-top: 0;
   margin-bottom: 10px;
+
   font-size: 16px;
 }
 
@@ -120,13 +135,17 @@ body {
 ========================= */
 
 .materia {
+
   width: 100%;
+
   margin-bottom: 4px;
+
   padding: 6px 8px;
 
   border-radius: 18px;
 
   font-size: 12px;
+
   line-height: 1.25;
 
   transition:
@@ -134,37 +153,49 @@ body {
     box-shadow .2s;
 
   cursor: not-allowed;
-}
 
-/* bloqueada */
-
-.materia {
   background: #efefef;
+
   border: 2px dashed #c9c9c9;
+
   color: #666;
 }
 
-/* disponible */
+/* DISPONIBLE */
 
 .materia.desbloqueada {
+
   background: #922b2b;
+
   color: white;
+
   border: none;
+
   cursor: pointer;
 }
 
-/* aprobada */
+/* APROBADA */
 
 .materia.aprobada {
-  background: #f4fbf4;
+
+  /* VERDE PASTEL */
+
+  background: #f7fcf7;
+
   color: #266325;
-  border: 1px solid #e4f0e4;
+
+  border: 1px solid #dcebdc;
+
   font-weight: 600;
+
+  cursor: pointer;
 }
 
 .materia.desbloqueada:hover,
 .materia.aprobada:hover {
+
   transform: translateY(-1px);
+
 }
 
 /* =========================
@@ -172,9 +203,13 @@ body {
 ========================= */
 
 .card {
+
   background: white;
+
   margin: 16px;
+
   padding: 18px;
+
   border-radius: 24px;
 
   box-shadow:
@@ -190,15 +225,23 @@ body {
 ========================= */
 
 #promedios-container {
+
   display: grid;
+
   gap: 8px;
 }
 
 #promedios-container input {
+
   padding: 10px;
+
   border-radius: 14px;
+
   border: 1px solid #ddd;
+
   font-size: 14px;
+
+  background: white;
 }
 
 /* =========================
@@ -206,19 +249,27 @@ body {
 ========================= */
 
 #logros-container {
+
   display: grid;
+
   gap: 10px;
 }
 
 .logro {
+
   background: #ececec;
+
   padding: 14px;
+
   border-radius: 16px;
+
   opacity: .5;
 }
 
 .logro.desbloqueado {
+
   opacity: 1;
+
   background: #fff6d6;
 }
 
@@ -227,12 +278,17 @@ body {
 ========================= */
 
 #toast {
+
   position: fixed;
+
   top: 20px;
+
   left: 50%;
+
   transform: translateX(-50%);
 
   background: rgba(30,30,30,.9);
+
   color: white;
 
   padding: 12px 18px;
@@ -240,14 +296,18 @@ body {
   border-radius: 16px;
 
   opacity: 0;
+
   pointer-events: none;
 
   transition: .3s;
 
   z-index: 9999;
+
+  backdrop-filter: blur(14px);
 }
 
 #toast.mostrar {
+
   opacity: 1;
 }
 
@@ -258,7 +318,10 @@ body {
 @media (max-width: 900px) {
 
   #malla {
-    grid-template-columns: repeat(8, 220px);
+
+    grid-template-columns:
+      repeat(8, 170px);
+
   }
 
 }
