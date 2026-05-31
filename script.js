@@ -184,6 +184,7 @@ if (creditos >= totalCreditos) {
   }
 
 }
+  actualizarSimulador();
   guardarDatos();
 
 }
