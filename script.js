@@ -387,17 +387,26 @@ actualizarProgreso();
 // CERRAR GRADUACIÓN
 // =========================
 
-document.addEventListener("click", function(e) {
+const botonCerrar =
+  document.getElementById(
+    "cerrar-graduacion"
+  );
 
-  if (e.target.id === "cerrar-graduacion") {
+if (botonCerrar) {
 
-    console.log("CLICK DETECTADO");
+  botonCerrar.addEventListener(
+    "click",
+    () => {
 
-    const modal =
-      document.getElementById("graduacion-modal");
+      document
+        .getElementById(
+          "graduacion-modal"
+        )
+        .classList.remove(
+          "mostrar"
+        );
 
-    modal.style.display = "none";
+    }
+  );
 
-  }
-
-});
+}
